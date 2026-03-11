@@ -13,9 +13,9 @@
            ============================== */
         :root {
             --bg-color: #ffffff;
-            --main-color: #8c5b3e; /* 味噌汁ブラウン */
+            --main-color: #8c5b3e;
             --text-color: #333333;
-            --accent-color: #f7f3f0; /* ベージュ */
+            --accent-color: #f7f3f0;
             --font-main: 'Noto Sans JP', sans-serif;
             --font-logo: 'BIZ UDPGothic', sans-serif;
         }
@@ -33,7 +33,7 @@
         a { text-decoration: none; color: inherit; transition: color 0.3s; }
         a:hover { color: var(--main-color); }
         ul { list-style: none; margin: 0; padding: 0; }
-        img { max-width: 100%; height: auto; display: block; }
+        img { max-width: 100%; height: auto; }
 
         .container {
             max-width: 1000px;
@@ -84,21 +84,21 @@
             gap: 30px;
         }
         .hero-ill {
-            width: 250px;
-            height: 250px;
-            overflow: hidden;
+            width: 280px;
+            height: 280px;
             border-radius: 50%;
-            border: 4px solid #fff;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            overflow: hidden; /* 丸く切り抜く */
+            background-color: #000; /* 黒いフチが目立たないよう背景を黒に */
         }
         .hero-ill img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transform: scale(1.02); /* 黒い隙間を消すためにほんの少しだけ拡大 */
         }
         
         .hero-content h1 { line-height: 1.3; }
-        .hero-text { font-size: 18px; color: #666; max-width: 600px; margin-top: 20px; }
+        .hero-text { font-size: 18px; color: #666; max-width: 600px; }
 
         /* ==============================
            セクション共通
@@ -113,10 +113,11 @@
         .about-text { flex: 1; }
         .about-img {
             flex: 1;
+            width: 100%;
             height: 350px;
+            border-radius: 10px;
             overflow: hidden;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* 画像に少し影をつけてリッチに */
         }
         .about-img img {
             width: 100%;
@@ -124,7 +125,6 @@
             object-fit: cover;
         }
 
-        /* INFO / 組織概要 */
         .info-table {
             width: 100%;
             border-collapse: collapse;
@@ -142,7 +142,6 @@
             background-color: #fafafa;
         }
 
-        /* CONTACT */
         .contact { text-align: center; }
         .contact-box {
             background-color: var(--accent-color);
@@ -151,7 +150,7 @@
             display: inline-block;
         }
         .contact-icon { font-size: 32px; margin-bottom: 20px; color: var(--main-color); }
-        .contact-email { font-size: 20px; font-weight: 700; letter-spacing: 0.5px; margin-top: 15px; }
+        .contact-email { font-size: 20px; font-weight: 700; letter-spacing: 0.5px; }
 
         /* ==============================
            フッター
@@ -173,21 +172,41 @@
            ============================== */
         @media (max-width: 768px) {
             h1 { font-size: 28px; }
+            h2 { font-size: 20px; }
             .header-inner { height: 60px; }
             .logo { font-size: 24px; }
             .nav-list { gap: 15px; font-size: 13px; }
-            .hero-ill { width: 200px; height: 200px; }
+            
+            .hero { padding: 60px 0; }
+            .hero-ill { width: 220px; height: 220px; }
+            .hero-text { font-size: 15px; }
+
+            section { padding: 50px 0; }
             .about-flex { flex-direction: column-reverse; gap: 30px; }
-            .about-img { height: 250px; width: 100%; }
+            .about-img { height: 250px; }
+
+            .info-table { font-size: 14px; }
+            .info-table th, .info-table td { padding: 15px 10px; }
+            .info-table th { width: 35%; }
+
+            .contact-box { padding: 30px; width: 100%; box-sizing: border-box; }
+            .contact-email { font-size: 16px; }
         }
 
         @media (max-width: 480px) {
             .nav-list { display: none; }
             .logo { width: 100%; text-align: center; }
-            h1 { font-size: 22px; }
+
+            h1 { font-size: 24px; line-height: 1.4; }
             .hero-content h1 span { display: block; }
-            .info-table, .info-table tr, .info-table th, .info-table td { display: block; width: 100%; box-sizing: border-box; }
-            .info-table th { background-color: var(--accent-color); color: var(--main-color); padding: 10px 20px; }
+
+            .info-table, .info-table tbody, .info-table tr, .info-table th, .info-table td {
+                display: block;
+                width: 100%;
+            }
+            .info-table tr { border-bottom: none; margin-bottom: 20px; }
+            .info-table th { background-color: var(--accent-color); border-bottom: none; padding: 10px; color: var(--main-color); }
+            .info-table td { border-bottom: 1px solid #f0f0f0; padding: 15px 10px; }
         }
     </style>
 </head>
@@ -211,11 +230,11 @@
     <section class="hero">
         <div class="container hero-inner">
             <div class="hero-ill">
-                <img src="images/hero.png" alt="misoshiru.nom-project メインビジュアル">
+                <img src="1000052257.png" alt="味噌汁とおにぎり">
             </div>
             <div class="hero-content">
                 <h1><span>味噌汁をドッと飲むように。</span><span>日常にホッとするアプリを。</span></h1>
-                <p class="hero-text">「misoshiru.nom-project」は、和モダンな感性と先進のテクノロジーを掛け合わせ、日々の生活を少しだけ便利に、心豊かにするアプリケーションを開発しています。</p>
+                <p class="hero-text">「misoshiru.nom-project」は、和モダンな感性と先進のテクノロジーを掛け合わせ、日々の生活を少しだけ便利に、心豊かにするスマートフォンアプリケーションを開発しています。</p>
             </div>
         </div>
     </section>
@@ -229,7 +248,7 @@
                     <p>私たちのプロジェクト名は、忙しい日々の中で味噌汁を一杯飲むときのような、安心感と温かさをアプリを通じて届けたい、という想いから名付けられました。</p>
                 </div>
                 <div class="about-img">
-                    <img src="images/about.png" alt="開発イメージ">
+                    <img src="1000052258.png" alt="アプリを見せる女性">
                 </div>
             </div>
         </div>
@@ -245,15 +264,15 @@
                 </tr>
                 <tr>
                     <th>代表</th>
-                    <td>味曾野　味噌男</td>
+                    <td>[ご自身の本名を入力]</td>
                 </tr>
                 <tr>
                     <th>所在地</th>
-                    <td>〒117-0062<br>東京都港区南青山2-2-15</td>
+                    <td>〒000-0000<br>[契約予定のバーチャルオフィスの住所を入力]</td>
                 </tr>
                 <tr>
                     <th>設立</th>
-                    <td>2026年3月</td>
+                    <td>2026年 [開業月]月</td>
                 </tr>
             </table>
         </div>
@@ -265,7 +284,7 @@
             <div class="contact-box">
                 <div class="contact-icon">✉️</div>
                 <p>アプリに関するお問い合わせ、サポート、ビジネスのご相談は、下記メールアドレスまでご連絡ください。</p>
-                <p class="contact-email"><a href="mailto:info@example.com">misoshiru.nom@gmail.com</a></p>
+                <p class="contact-email"><a href="mailto:info@yourdomain.com">info@[取得予定のドメインを入力]</a></p>
             </div>
         </div>
     </section>
