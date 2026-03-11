@@ -20,193 +20,104 @@
             --font-logo: 'BIZ UDPGothic', sans-serif;
         }
 
-        body {
-            font-family: var(--font-main);
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            margin: 0;
-            padding: 0;
-            line-height: 1.8;
-            -webkit-font-smoothing: antialiased;
-        }
+        body { font-family: var(--font-main); color: var(--text-color); background-color: var(--bg-color); margin: 0; padding: 0; line-height: 1.8; -webkit-font-smoothing: antialiased; padding-bottom: 70px; /* スマホ用タブの余白 */ }
+        @media (min-width: 769px) { body { padding-bottom: 0; } } /* PCでは下部余白なし */
 
         a { text-decoration: none; color: inherit; transition: color 0.3s; }
-        a:hover { color: var(--main-color); }
-        ul { list-style: none; margin: 0; padding: 0; }
         img { max-width: 100%; height: auto; }
+        ul { list-style: none; margin: 0; padding: 0; }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
         h1, h2, h3 { color: #222; font-weight: 700; margin: 0; }
         h1 { font-size: 36px; }
         h2 { font-size: 24px; color: var(--main-color); position: relative; display: inline-block; padding-bottom: 10px; margin-bottom: 40px; }
         h2::after { content: ''; position: absolute; left: 0; bottom: 0; width: 60px; height: 3px; background-color: var(--main-color); }
 
         /* ==============================
-           ヘッダー
+           ヘッダー（PC用トップメニュー）
            ============================== */
-        header {
-            background-color: var(--bg-color);
-            border-bottom: 1px solid #f0f0f0;
-            position: sticky; top: 0; z-index: 100;
-        }
-        .header-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 80px;
-        }
-        .logo {
-            font-family: var(--font-logo);
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--main-color);
-            letter-spacing: 0.5px;
-        }
-        .nav-list { display: flex; gap: 30px; font-size: 15px; }
+        header { background-color: var(--bg-color); border-bottom: 1px solid #f0f0f0; position: sticky; top: 0; z-index: 100; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+        .logo { font-family: var(--font-logo); font-size: 28px; font-weight: 700; color: var(--main-color); }
+        .nav-list { display: flex; gap: 30px; font-size: 15px; cursor: pointer; }
+        .nav-item:hover, .nav-item.active { color: var(--main-color); font-weight: bold; }
 
         /* ==============================
-           ヒーローセクション
+           タブコンテンツの切り替え設定
            ============================== */
-        .hero {
-            background-color: var(--accent-color);
-            padding: 100px 0;
-            text-align: center;
-        }
-        .hero-inner {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 30px;
-        }
-        .hero-ill {
-            width: 280px;
-            height: 280px;
-            border-radius: 50%;
-            overflow: hidden; /* 丸く切り抜く */
-            background-color: #000; /* 黒いフチが目立たないよう背景を黒に */
-        }
-        .hero-ill img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transform: scale(1.02); /* 黒い隙間を消すためにほんの少しだけ拡大 */
-        }
-        
+        .tab-pane { display: none; animation: fadeIn 0.4s ease; }
+        .tab-pane.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 各セクションのデザイン（これまでと同じ） */
+        .hero { background-color: var(--accent-color); padding: 80px 0; text-align: center; }
+        .hero-inner { display: flex; flex-direction: column; align-items: center; gap: 30px; }
+        .hero-ill { width: 280px; height: 280px; border-radius: 50%; overflow: hidden; background-color: #000; }
+        .hero-ill img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.02); }
         .hero-content h1 { line-height: 1.3; }
-        .hero-text { font-size: 18px; color: #666; max-width: 600px; }
-
-        /* ==============================
-           セクション共通
-           ============================== */
+        
         section { padding: 80px 0; }
-
-        .about-flex {
-            display: flex;
-            align-items: center;
-            gap: 50px;
-        }
+        .about-flex { display: flex; align-items: center; gap: 50px; }
         .about-text { flex: 1; }
-        .about-img {
-            flex: 1;
-            width: 100%;
-            height: 350px;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* 画像に少し影をつけてリッチに */
-        }
-        .about-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .info-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 15px;
-        }
-        .info-table th, .info-table td {
-            padding: 20px;
-            border-bottom: 1px solid #f0f0f0;
-            text-align: left;
-        }
-        .info-table th {
-            width: 25%;
-            font-weight: 700;
-            color: #555;
-            background-color: #fafafa;
-        }
+        .about-img { flex: 1; width: 100%; height: 350px; border-radius: 10px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .about-img img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .info-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+        .info-table th, .info-table td { padding: 20px; border-bottom: 1px solid #f0f0f0; text-align: left; }
+        .info-table th { width: 25%; color: #555; background-color: #fafafa; }
 
         .contact { text-align: center; }
-        .contact-box {
-            background-color: var(--accent-color);
-            padding: 50px;
-            border-radius: 15px;
-            display: inline-block;
-        }
+        .contact-box { background-color: var(--accent-color); padding: 50px; border-radius: 15px; display: inline-block; }
         .contact-icon { font-size: 32px; margin-bottom: 20px; color: var(--main-color); }
-        .contact-email { font-size: 20px; font-weight: 700; letter-spacing: 0.5px; }
+
+        footer { background-color: #222; color: #ccc; padding: 50px 0; font-size: 14px; text-align: center; }
 
         /* ==============================
-           フッター
+           スマホ用：下部固定タブナビゲーション
            ============================== */
-        footer {
-            background-color: #222;
-            color: #ccc;
-            padding: 50px 0;
-            font-size: 14px;
-            text-align: center;
-        }
-        .footer-nav { margin-bottom: 20px; display: flex; justify-content: center; gap: 20px; }
-        .footer-nav a { color: #aaa; }
-        .footer-nav a:hover { color: #fff; }
-        .copyright { color: #888; }
+        .bottom-nav { display: none; } /* PCでは非表示 */
 
-        /* ==============================
-           レスポンシブ
-           ============================== */
         @media (max-width: 768px) {
-            h1 { font-size: 28px; }
-            h2 { font-size: 20px; }
-            .header-inner { height: 60px; }
-            .logo { font-size: 24px; }
-            .nav-list { gap: 15px; font-size: 13px; }
+            .nav-list { display: none; } /* PC用上部メニューを隠す */
+            .header-inner { justify-content: center; } /* スマホはロゴを中央に */
             
-            .hero { padding: 60px 0; }
-            .hero-ill { width: 220px; height: 220px; }
-            .hero-text { font-size: 15px; }
+            /* アプリ風の下部タブバー */
+            .bottom-nav {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background-color: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px); /* すりガラス効果でおしゃれに */
+                border-top: 1px solid #f0f0f0;
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+                z-index: 1000;
+                padding-bottom: env(safe-area-inset-bottom); /* iPhoneのホームバー対策 */
+            }
+            .bottom-tab {
+                flex: 1;
+                text-align: center;
+                padding: 12px 0;
+                font-size: 11px;
+                color: #888;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+                cursor: pointer;
+            }
+            .bottom-tab.active { color: var(--main-color); font-weight: bold; }
+            .tab-icon { font-size: 20px; }
 
-            section { padding: 50px 0; }
-            .about-flex { flex-direction: column-reverse; gap: 30px; }
-            .about-img { height: 250px; }
-
-            .info-table { font-size: 14px; }
-            .info-table th, .info-table td { padding: 15px 10px; }
-            .info-table th { width: 35%; }
-
-            .contact-box { padding: 30px; width: 100%; box-sizing: border-box; }
-            .contact-email { font-size: 16px; }
-        }
-
-        @media (max-width: 480px) {
-            .nav-list { display: none; }
-            .logo { width: 100%; text-align: center; }
-
+            /* スマホ用レイアウト調整 */
             h1 { font-size: 24px; line-height: 1.4; }
             .hero-content h1 span { display: block; }
-
-            .info-table, .info-table tbody, .info-table tr, .info-table th, .info-table td {
-                display: block;
-                width: 100%;
-            }
-            .info-table tr { border-bottom: none; margin-bottom: 20px; }
-            .info-table th { background-color: var(--accent-color); border-bottom: none; padding: 10px; color: var(--main-color); }
-            .info-table td { border-bottom: 1px solid #f0f0f0; padding: 15px 10px; }
+            .hero-ill { width: 200px; height: 200px; }
+            .about-flex { flex-direction: column-reverse; gap: 30px; }
+            .about-img { height: 220px; }
+            .info-table th, .info-table td { display: block; width: 100%; padding: 15px 10px; }
+            .contact-box { width: 100%; box-sizing: border-box; padding: 30px; }
         }
     </style>
 </head>
@@ -214,93 +125,132 @@
 
 <header>
     <div class="container header-inner">
-        <div class="logo">misoshiru.nom-project</div>
+        <div class="logo">misoshiru.nom</div>
         <nav>
             <ul class="nav-list">
-                <li><a href="#about">ABOUT</a></li>
-                <li><a href="#info">PROFILE</a></li>
-                <li><a href="#contact">CONTACT</a></li>
-                <li><a href="apps.html">APPS</a></li>
+                <li class="nav-item active" onclick="switchTab('tab-top', this)">TOP</li>
+                <li class="nav-item" onclick="switchTab('tab-apps', this)">APPS</li>
+                <li class="nav-item" onclick="switchTab('tab-profile', this)">PROFILE</li>
             </ul>
         </nav>
     </div>
 </header>
 
 <main>
-    <section class="hero">
-        <div class="container hero-inner">
-            <div class="hero-ill">
-                <img src="1773188330003.png" alt="味噌汁とおにぎり">
-            </div>
-            <div class="hero-content">
-                <h1><span>味噌汁をドッと飲むように。</span><br><span>日常にホッとするアプリを。</span></h1>
-                <p class="hero-text">「misoshiru.nom-project」は、和モダンな感性と先進のテクノロジーを掛け合わせ、日々の生活を少しだけ便利に、心豊かにするスマートフォンアプリケーションを開発しています。</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="about">
-        <div class="container">
-            <div class="about-flex">
-                <div class="about-text">
-                    <h2>事業内容</h2>
-                    <p>Androidを中心としたスマートフォン向けアプリケーションの企画・開発・運用を行っています。単なるツールとしての便利さだけでなく、使うたびに「ホッとする」ような、ユーザーに寄り添った体験を提供することを目指しています。</p>
-                    <p>私たちのプロジェクト名は、忙しい日々の中で味噌汁を一杯飲むときのような、安心感と温かさをアプリを通じて届けたい、という想いから名付けられました。</p>
+    <div id="tab-top" class="tab-pane active">
+        <section class="hero" style="padding-top: 40px;">
+            <div class="container hero-inner">
+                <div class="hero-ill">
+                    <img src="1773188330003.png" alt="味噌汁とおにぎり">
                 </div>
-                <div class="about-img">
-                    <img src="1773188156709.png" alt="アプリを見せる女性">
+                <div class="hero-content">
+                    <h1><span>味噌汁をドッと飲むように。</span><br><span>日常にホッとするアプリを。</span></h1>
+                    <p class="hero-text" style="margin-top:20px;">「misoshiru.nom-project」は、和モダンな感性と先進のテクノロジーを掛け合わせ、日々の生活を少しだけ便利に、心豊かにするスマートフォンアプリケーションを開発しています。</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="info">
-        <div class="container">
-            <h2>組織概要</h2>
-            <table class="info-table">
-                <tr>
-                    <th>屋号</th>
-                    <td>misoshiru.nom-project</td>
-                </tr>
-                <tr>
-                    <th>代表</th>
-                    <td>味噌野 味噌男</td>
-                </tr>
-                <tr>
-                    <th>所在地</th>
-                    <td>〒000-0000<br>東京都港区南青山2-2-5</td>
-                </tr>
-                <tr>
-                    <th>設立</th>
-                    <td>2026年３月</td>
-                </tr>
-            </table>
-        </div>
-    </section>
-
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2>お問い合わせ</h2>
-            <div class="contact-box">
-                <div class="contact-icon">✉️</div>
-                <p>アプリに関するお問い合わせ、サポート、ビジネスのご相談は、下記メールアドレスまでご連絡ください。</p>
-                <p class="contact-email"><a href="mailto:info@yourdomain.com">info@準備中</a></p>
+        <section id="about">
+            <div class="container">
+                <div class="about-flex">
+                    <div class="about-text">
+                        <h2>事業内容</h2>
+                        <p>Androidを中心としたスマートフォン向けアプリケーションの企画・開発・運用を行っています。単なるツールとしての便利さだけでなく、使うたびに「ホッとする」ような、ユーザーに寄り添った体験を提供することを目指しています。</p>
+                        <p>私たちのプロジェクト名は、忙しい日々の中で味噌汁を一杯飲むときのような、安心感と温かさをアプリを通じて届けたい、という想いから名付けられました。</p>
+                    </div>
+                    <div class="about-img">
+                        <img src="1773188156709.png" alt="アプリを見せる女性">
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
+
+    <div id="tab-apps" class="tab-pane">
+        <section>
+            <div class="container">
+                <h2 style="text-align: center; display: block;">APPS / アプリケーション</h2>
+                <div style="text-align: center; padding: 50px 0; background: #fff; border-radius: 15px; margin-top: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.05);">
+                    <h3 style="color: var(--main-color); font-size: 24px;">簡単画面</h3>
+                    <p style="margin: 20px 0;">スマホをもっとやさしく、使いやすく。<br>日常にホッとする体験をお届けするホーム画面アプリです。</p>
+                    <p style="color: #888; font-size: 14px;">※ここにスクリーンショットや詳しい説明を追加できます。</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="tab-profile" class="tab-pane">
+        <section id="info">
+            <div class="container">
+                <h2>組織概要</h2>
+                <table class="info-table">
+                    <tr><th>屋号</th><td>misoshiru.nom-project</td></tr>
+                    <tr><th>代表</th><td>[ご自身の本名を入力]</td></tr>
+                    <tr><th>所在地</th><td>〒000-0000<br>[契約予定のバーチャルオフィスの住所を入力]</td></tr>
+                    <tr><th>設立</th><td>2026年 [開業月]月</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2>お問い合わせ</h2>
+                <div class="contact-box">
+                    <div class="contact-icon">✉️</div>
+                    <p>アプリに関するお問い合わせ、サポート、ビジネスのご相談は、下記メールアドレスまでご連絡ください。</p>
+                    <p style="font-size: 20px; font-weight: bold; margin-top: 15px;">info@[取得予定のドメインを入力]</p>
+                </div>
+            </div>
+        </section>
+    </div>
 </main>
 
 <footer>
     <div class="container">
-        <nav class="footer-nav">
-            <a href="#">TOP</a>
-            <a href="#about">ABOUT</a>
-            <a href="#info">PROFILE</a>
-            <a href="#">プライバシーポリシー</a>
-        </nav>
-        <p class="copyright">&copy; 2026 misoshiru.nom-project All rights reserved.</p>
+        <p style="color: #888; font-size: 12px;">&copy; 2026 misoshiru.nom-project All rights reserved.</p>
     </div>
 </footer>
+
+<nav class="bottom-nav">
+    <div class="bottom-tab active" onclick="switchTab('tab-top', this)">
+        <span class="tab-icon">🏠</span>
+        <span>TOP</span>
+    </div>
+    <div class="bottom-tab" onclick="switchTab('tab-apps', this)">
+        <span class="tab-icon">📱</span>
+        <span>APPS</span>
+    </div>
+    <div class="bottom-tab" onclick="switchTab('tab-profile', this)">
+        <span class="tab-icon">👤</span>
+        <span>PROFILE</span>
+    </div>
+</nav>
+
+<script>
+    function switchTab(tabId, clickedElement) {
+        // 1. 全てのタブ内容（画面）を一旦隠す
+        document.querySelectorAll('.tab-pane').forEach(function(pane) {
+            pane.classList.remove('active');
+        });
+        
+        // 2. PC用・スマホ用のすべてのメニューの「選択中(active)」状態を解除
+        document.querySelectorAll('.nav-item, .bottom-tab').forEach(function(tab) {
+            tab.classList.remove('active');
+        });
+        
+        // 3. クリックされたタブの内容だけを表示
+        document.getElementById(tabId).classList.add('active');
+        
+        // 4. クリックされたボタンを「選択中」の色にする
+        // （PCとスマホ両方の対応するタブを光らせる）
+        let targetIndex = Array.from(clickedElement.parentNode.children).indexOf(clickedElement);
+        document.querySelectorAll('.nav-list')[0].children[targetIndex].classList.add('active');
+        document.querySelectorAll('.bottom-nav')[0].children[targetIndex].classList.add('active');
+        
+        // 5. 切り替えた時に画面の一番上までスクロールを戻す
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
 
 </body>
 </html>
