@@ -6,14 +6,15 @@
     <title>APPS | misoshiru.nom-project</title>
     <style>
         /* ==============================
-           共通スタイル・和モダン設定
+           基本設定・和モダンカラー
            ============================== */
         :root { --bg-color: #ffffff; --main-color: #8c5b3e; --text-color: #333333; --accent-color: #f7f3f0; --font-main: 'Noto Sans JP', sans-serif; }
         body { font-family: var(--font-main); color: var(--text-color); background-color: var(--bg-color); margin: 0; padding: 0; line-height: 2; padding-bottom: 90px; overflow-x: hidden;}
         @media (min-width: 769px) { body { padding-bottom: 0; } }
         a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        img { max-width: 100%; height: auto; display: block; }
         ul { list-style: none; margin: 0; padding: 0; }
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 5%; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
         h1, h2, h3, h4 { color: #222; font-weight: 700; margin: 0; }
         
         /* ヘッダー */
@@ -25,28 +26,35 @@
         .nav-item::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--main-color); transition: width 0.3s ease; }
         .nav-item:hover::after, .nav-item.active::after { width: 100%; }
 
-        /* スクロール演出・アニメーション */
+        /* スクロール演出・ホバー演出 */
         .fade-in-up { opacity: 0; transform: translateY(40px); transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .fade-in-up.is-visible { opacity: 1; transform: translateY(0); }
         .delay-1 { transition-delay: 0.2s; }
+        .img-zoom-wrap { overflow: hidden; border-radius: 12px; }
+        .img-zoom-wrap img { transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        .img-zoom-wrap:hover img { transform: scale(1.05); }
 
-        /* ページヘッダー */
+        /* APPSページ ヘッダー */
         .page-header { background-color: var(--accent-color); padding: 80px 0; text-align: center; }
         .page-header h1 { font-size: 32px; color: var(--main-color); letter-spacing: 0.1em; }
 
-        /* LP風 画像スライドスタイル */
-        .app-presentation { padding: 80px 0; display: flex; flex-direction: column; align-items: center; gap: 80px; }
+        /* 個別アプリのセクション（アプリが増えたらこれを複製します） */
+        .app-section { padding: 100px 0; border-bottom: 1px solid #eee; }
+        .app-intro { text-align: center; margin-bottom: 80px; }
+        .app-title { font-size: 40px; margin-bottom: 10px; }
+        .app-subtitle { font-size: 18px; color: var(--main-color); margin-bottom: 30px; }
         
-        .slide-image-wrap { width: 100%; max-width: 900px; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.08); background-color: #fff; }
-        .slide-image-wrap img { width: 100%; height: auto; display: block; transition: transform 0.5s ease; }
+        /* パーツのダイナミック配置 */
+        .feature-block { display: flex; align-items: center; gap: 80px; margin-bottom: 120px; }
+        .feature-block:nth-child(even) { flex-direction: row-reverse; }
+        .feature-img { flex: 1; }
+        .feature-img img { margin: 0 auto; max-height: 450px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); }
         
-        /* 画像に少しだけズーム効果をつける */
-        .slide-image-wrap:hover img { transform: scale(1.02); }
-
-        /* ダウンロードボタンなどの装飾 */
-        .action-area { text-align: center; margin-top: 40px; padding-bottom: 100px; }
-        .dl-btn { display: inline-block; background-color: var(--main-color); color: #fff; padding: 20px 60px; border-radius: 50px; font-size: 18px; font-weight: bold; letter-spacing: 0.1em; box-shadow: 0 10px 20px rgba(140, 91, 62, 0.3); transition: all 0.3s; }
-        .dl-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(140, 91, 62, 0.4); }
+        .feature-text { flex: 1; position: relative; }
+        .feature-text h4 { font-size: 24px; margin-bottom: 25px; line-height: 1.5; padding-bottom: 15px; position: relative; }
+        .feature-text h4::after { content: ''; position: absolute; left: 0; bottom: 0; width: 40px; height: 2px; background-color: var(--main-color); }
+        .feature-list li { margin-bottom: 15px; position: relative; padding-left: 25px; color: #555; }
+        .feature-list li::before { content: ''; position: absolute; left: 0; top: 10px; width: 10px; height: 2px; background-color: var(--main-color); }
 
         footer { background-color: #222; color: #aaa; padding: 60px 0; font-size: 13px; text-align: center; }
 
@@ -61,8 +69,9 @@
             .bottom-tab.active .tab-icon { transform: translateY(-3px) scale(1.1); }
             .bottom-tab.active::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 30%; height: 2px; background-color: var(--main-color); border-radius: 0 0 2px 2px; }
             
-            .app-presentation { gap: 40px; padding: 50px 0; }
-            .slide-image-wrap { border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+            .feature-block, .feature-block:nth-child(even) { flex-direction: column; gap: 40px; margin-bottom: 80px; }
+            .feature-img img { max-height: 350px; }
+            .app-section { padding: 60px 0; }
         }
     </style>
 </head>
@@ -89,50 +98,62 @@
         </div>
     </div>
 
-    <section class="container app-presentation">
-        
-        <div class="slide-image-wrap fade-in-up delay-1">
-            <img src="kantan2_01.jpg" alt="スマホがもっと楽しくなる、好きになる。かんたん画面2">
-        </div>
+    <!-- ==========================================
+         アプリ1：簡単画面
+         ========================================== -->
+    <section class="app-section">
+        <div class="container">
+            <div class="app-intro fade-in-up">
+                <h2 class="app-title">簡単画面</h2>
+                <p class="app-subtitle">スマホをもっとやさしく、使いやすく。</p>
+                <p style="color:#666;">日常にホッとする体験をお届けする、ホーム画面アプリです。</p>
+            </div>
 
-        <div class="slide-image-wrap fade-in-up">
-            <img src="kantan2_02.jpg" alt="スマホデビュー、教えるのも覚えるのも、もう頑張らなくて大丈夫です。">
-        </div>
+            <div class="feature-block">
+                <div class="feature-img img-zoom-wrap fade-in-up"><img src="app1-1.jpg" alt="ゆとりのあるボタン配置"></div>
+                <div class="feature-text fade-in-up delay-1">
+                    <h4>誤操作を防ぐ、<br>ゆとりのあるボタン配置</h4>
+                    <ul class="feature-list">
+                        <li>直感的なアイコン（メール・電話・カメラ）</li>
+                        <li>白文字と濃い背景のハイコントラスト</li>
+                        <li>ワンタッチで主要機能へアクセス</li>
+                    </ul>
+                </div>
+            </div>
 
-        <div class="slide-image-wrap fade-in-up">
-            <img src="kantan2_03.jpg" alt="使うものだけを選んで、自分専用のスマホに。">
-        </div>
+            <div class="feature-block">
+                <div class="feature-img img-zoom-wrap fade-in-up"><img src="app1-2.jpg" alt="よくかける相手機能"></div>
+                <div class="feature-text fade-in-up delay-1">
+                    <h4>家族とのつながりを、<br>もっと手軽に</h4>
+                    <ul class="feature-list">
+                        <li>「よくかける相手」を3件まで登録可能</li>
+                        <li>数百件の連絡先から探す手間を解消</li>
+                        <li>ワンタップで大切な人へ発信</li>
+                    </ul>
+                </div>
+            </div>
 
-        <div class="slide-image-wrap fade-in-up">
-            <img src="kantan2_04.jpg" alt="いつものあの人へ、ワンタッチでつながる。">
+            <div class="feature-block">
+                <div class="feature-img img-zoom-wrap fade-in-up"><img src="app1-3.jpg" alt="6色のカラーテーマ"></div>
+                <div class="feature-text fade-in-up delay-1">
+                    <h4>気分に合わせて選べる、<br>6色のカラーテーマ</h4>
+                    <ul class="feature-list">
+                        <li>視認性や好みに合わせて、画面全体の色を変更可能。</li>
+                        <li>検索バー横の「色」ボタンで瞬時に切り替え。</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-
-        <div class="slide-image-wrap fade-in-up">
-            <img src="kantan2_05.jpg" alt="間違えても大丈夫。すぐに直せる安心設計。">
-        </div>
-
-        <div class="slide-image-wrap fade-in-up">
-            <img src="kantan2_06.jpg" alt="家族が教えやすい、シンプルで優しい設定画面。">
-        </div>
-
-        <div class="slide-image-wrap fade-in-up">
-            <img src="kantan2_07.jpg" alt="見やすい色、お気に入りの写真でおめかし。">
-        </div>
-
-        <div class="slide-image-wrap fade-in-up">
-            <img src="kantan2_08.jpg" alt="使う方に合わせて選べる全12色。">
-        </div>
-
-        <div class="slide-image-wrap fade-in-up">
-            <img src="kantan2_09.jpg" alt="お孫さんやペット、お気に入りの写真を背景に。">
-        </div>
-        
     </section>
 
-    <div class="container action-area fade-in-up">
-        <h3 style="margin-bottom: 20px;">かんたん画面2ではじめる、安心のスマホライフ</h3>
-        <a href="#" class="dl-btn">アプリの詳細・ダウンロード</a>
-    </div>
+    <!-- ==========================================
+         アプリ2：ここから下に新しいアプリを追加していきます
+         ========================================== -->
+    <!-- 
+    <section class="app-section">
+        新しいアプリの内容が入ります
+    </section>
+    -->
 
 </main>
 
@@ -144,8 +165,8 @@
     <a href="profile.html" class="bottom-tab"><span class="tab-icon">👤</span><span>PROFILE</span></a>
 </nav>
 
+<!-- スクロール演出のためのJavaScript -->
 <script>
-    // スクロールに合わせて要素をふわっと表示させるJavaScript
     document.addEventListener("DOMContentLoaded", function() {
         const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
         const observer = new IntersectionObserver((entries, observer) => {
