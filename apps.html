@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>APPS | misoshiru.nom-project</title>
     <style>
-        /* 共通設定 */
         :root { --bg-color: #ffffff; --main-color: #8c5b3e; --text-color: #333333; --accent-color: #f7f3f0; --font-main: 'Noto Sans JP', sans-serif; }
         body { font-family: var(--font-main); color: var(--text-color); background-color: var(--bg-color); margin: 0; padding: 0; line-height: 2; padding-bottom: 90px; overflow-x: hidden;}
         @media (min-width: 769px) { body { padding-bottom: 0; } }
@@ -15,16 +14,19 @@
         .container { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
         h1, h2, h3, h4 { color: #222; font-weight: 700; margin: 0; }
         
-        /* ヘッダー */
         header { background-color: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #f0f0f0; position: sticky; top: 0; z-index: 100; transition: all 0.3s; }
         .header-inner { display: flex; justify-content: space-between; align-items: center; height: 80px; }
-        .logo { font-size: 24px; font-weight: 700; color: var(--main-color); letter-spacing: 0.05em; }
+        
+        /* ロゴ周りの修正 */
+        .logo-wrap { display: flex; flex-direction: column; text-decoration: none; }
+        .logo { font-size: 24px; font-weight: 700; color: var(--main-color); letter-spacing: 0.05em; line-height: 1; }
+        .logo-sub { font-size: 11px; color: #888; font-weight: normal; letter-spacing: 0.15em; margin-top: 4px; }
+        
         .nav-list { display: flex; gap: 40px; font-size: 14px; letter-spacing: 0.05em; }
         .nav-item { position: relative; padding-bottom: 5px; }
         .nav-item::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--main-color); transition: width 0.3s ease; }
         .nav-item:hover::after, .nav-item.active::after { width: 100%; }
 
-        /* スクロール演出 */
         .fade-in-up { opacity: 0; transform: translateY(40px); transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .fade-in-up.is-visible { opacity: 1; transform: translateY(0); }
         .delay-1 { transition-delay: 0.1s; }
@@ -33,9 +35,7 @@
         .page-header { background-color: var(--accent-color); padding: 80px 0; text-align: center; }
         .page-header h1 { font-size: 32px; color: var(--main-color); letter-spacing: 0.1em; }
 
-        /* アプリ一覧用のカードグリッド */
         .app-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 40px; padding: 80px 0; }
-        
         .app-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease, box-shadow 0.3s ease; border: 1px solid #f5f5f5; display: flex; flex-direction: column; }
         .app-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
         
@@ -52,9 +52,9 @@
 
         footer { background-color: #222; color: #aaa; padding: 60px 0; font-size: 13px; text-align: center; }
 
-        /* スマホ用下部タブ */
         .bottom-nav { display: none; }
         @media (max-width: 768px) {
+            .logo-wrap { align-items: center; } /* ロゴ中央揃え */
             .nav-list { display: none; } .header-inner { justify-content: center; }
             .bottom-nav { display: flex; position: fixed; bottom: 0; left: 0; width: 100%; background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); border-top: 1px solid #eaeaea; box-shadow: 0 -5px 25px rgba(0,0,0,0.05); z-index: 1000; padding-bottom: env(safe-area-inset-bottom); }
             .bottom-tab { flex: 1; text-align: center; padding: 16px 0 12px; font-size: 11px; color: #b0b0b0; display: flex; flex-direction: column; align-items: center; gap: 5px; position: relative; -webkit-tap-highlight-color: transparent; }
@@ -69,7 +69,11 @@
 
 <header>
     <div class="container header-inner">
-        <div class="logo">misoshiru.nom</div>
+        <!-- ロゴ周りを修正 -->
+        <a href="index.html" class="logo-wrap">
+            <div class="logo">misoshiru.nom</div>
+            <div class="logo-sub">みそしる どっと のむ</div>
+        </a>
         <nav>
             <ul class="nav-list">
                 <li><a href="index.html" class="nav-item">TOP</a></li>
@@ -91,11 +95,8 @@
     <section class="container">
         <div class="app-grid">
             
-            <!-- アプリ1：簡単画面 -->
             <a href="app1.html" class="app-card fade-in-up">
-                <div class="app-card-img">
-                    <img src="app1-1.jpg" alt="簡単画面">
-                </div>
+                <div class="app-card-img"><img src="app1-1.jpg" alt="簡単画面"></div>
                 <div class="app-card-body">
                     <h3 class="app-card-title">簡単画面</h3>
                     <p class="app-card-desc">スマホをもっとやさしく、使いやすく。誤操作を防ぐゆとりのあるボタン配置が特徴のホーム画面アプリです。</p>
@@ -103,11 +104,8 @@
                 </div>
             </a>
 
-            <!-- アプリ2：かんたん画面2 -->
             <a href="app2.html" class="app-card fade-in-up delay-1">
-                <div class="app-card-img">
-                    <img src="kantan2_01.jpg" alt="かんたん画面2">
-                </div>
+                <div class="app-card-img"><img src="kantan2_01.jpg" alt="かんたん画面2"></div>
                 <div class="app-card-body">
                     <h3 class="app-card-title">かんたん画面2</h3>
                     <p class="app-card-desc">安心と自由をさらに進化。使う方に合わせて選べる12色のカラーと、カスタマイズ性を備えた最新版です。</p>
@@ -115,11 +113,8 @@
                 </div>
             </a>
 
-            <!-- アプリ3：みやすい電話 -->
             <a href="app3.html" class="app-card fade-in-up delay-2">
-                <div class="app-card-img">
-                    <img src="miyasui_01.jpg" alt="みやすい電話">
-                </div>
+                <div class="app-card-img"><img src="miyasui_01.jpg" alt="みやすい電話"></div>
                 <div class="app-card-body">
                     <h3 class="app-card-title">みやすい電話</h3>
                     <p class="app-card-desc">スマホの電話帳、使いにくくないですか？ガラケー時代のような安心感で、迷わず操作できる電話帳アプリです。</p>
