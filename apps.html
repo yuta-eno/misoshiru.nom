@@ -33,7 +33,7 @@
         .page-header { background-color: var(--accent-color); padding: 80px 0; text-align: center; }
         .page-header h1 { font-size: 32px; color: var(--main-color); letter-spacing: 0.1em; }
 
-        /* アプリ一覧用のカードグリッド（アプリが100個になっても綺麗に並びます） */
+        /* アプリ一覧用のカードグリッド */
         .app-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 40px; padding: 80px 0; }
         
         .app-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease, box-shadow 0.3s ease; border: 1px solid #f5f5f5; display: flex; flex-direction: column; }
@@ -91,7 +91,7 @@
     <section class="container">
         <div class="app-grid">
             
-            <!-- アプリ1：簡単画面 のカード（app1.htmlに飛ぶ） -->
+            <!-- アプリ1：簡単画面 -->
             <a href="app1.html" class="app-card fade-in-up">
                 <div class="app-card-img">
                     <img src="app1-1.jpg" alt="簡単画面">
@@ -103,10 +103,9 @@
                 </div>
             </a>
 
-            <!-- アプリ2：かんたん画面2 のカード（app2.htmlに飛ぶ） -->
+            <!-- アプリ2：かんたん画面2 -->
             <a href="app2.html" class="app-card fade-in-up delay-1">
                 <div class="app-card-img">
-                    <!-- 代表画像として1枚目を設定 -->
                     <img src="kantan2_01.jpg" alt="かんたん画面2">
                 </div>
                 <div class="app-card-body">
@@ -116,7 +115,17 @@
                 </div>
             </a>
 
-            <!-- 今後アプリが増えたら、この下に同じ形のカードを追加していくだけです！ -->
+            <!-- アプリ3：みやすい電話 -->
+            <a href="app3.html" class="app-card fade-in-up delay-2">
+                <div class="app-card-img">
+                    <img src="miyasui_01.jpg" alt="みやすい電話">
+                </div>
+                <div class="app-card-body">
+                    <h3 class="app-card-title">みやすい電話</h3>
+                    <p class="app-card-desc">スマホの電話帳、使いにくくないですか？ガラケー時代のような安心感で、迷わず操作できる電話帳アプリです。</p>
+                    <span class="app-card-link">詳細を見る</span>
+                </div>
+            </a>
 
         </div>
     </section>
@@ -144,5 +153,3 @@
 
 </body>
 </html>
-
-
