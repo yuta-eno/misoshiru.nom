@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PROFILE | misoshiru.nom-project</title>
     <style>
-        /* 共通スタイル */
         :root { --bg-color: #ffffff; --main-color: #8c5b3e; --text-color: #333333; --accent-color: #f7f3f0; --font-main: 'Noto Sans JP', sans-serif; }
         body { font-family: var(--font-main); color: var(--text-color); background-color: var(--bg-color); margin: 0; padding: 0; line-height: 2; padding-bottom: 90px; overflow-x: hidden;}
         @media (min-width: 769px) { body { padding-bottom: 0; } }
@@ -20,13 +19,17 @@
 
         header { background-color: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #f0f0f0; position: sticky; top: 0; z-index: 100; transition: all 0.3s; }
         .header-inner { display: flex; justify-content: space-between; align-items: center; height: 80px; }
-        .logo { font-size: 24px; font-weight: 700; color: var(--main-color); letter-spacing: 0.05em; }
+        
+        /* ロゴ周りの修正 */
+        .logo-wrap { display: flex; flex-direction: column; text-decoration: none; }
+        .logo { font-size: 24px; font-weight: 700; color: var(--main-color); letter-spacing: 0.05em; line-height: 1; }
+        .logo-sub { font-size: 11px; color: #888; font-weight: normal; letter-spacing: 0.15em; margin-top: 4px; }
+        
         .nav-list { display: flex; gap: 40px; font-size: 14px; letter-spacing: 0.05em; }
         .nav-item { position: relative; padding-bottom: 5px; }
         .nav-item::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--main-color); transition: width 0.3s ease; }
         .nav-item:hover::after, .nav-item.active::after { width: 100%; }
 
-        /* スクロール演出 */
         .fade-in-up { opacity: 0; transform: translateY(40px); transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .fade-in-up.is-visible { opacity: 1; transform: translateY(0); }
         .delay-1 { transition-delay: 0.2s; }
@@ -36,7 +39,6 @@
 
         .section-wrap { padding: 100px 0; }
         
-        /* 組織概要の余白調整 */
         .info-table { width: 100%; border-collapse: collapse; font-size: 15px; margin-bottom: 40px; }
         .info-table th, .info-table td { padding: 25px 20px; border-bottom: 1px solid #f0f0f0; text-align: left; }
         .info-table th { width: 25%; color: #888; font-weight: normal; }
@@ -46,9 +48,9 @@
 
         footer { background-color: #222; color: #aaa; padding: 60px 0; font-size: 13px; text-align: center; }
 
-        /* スマホ用下部タブ */
         .bottom-nav { display: none; }
         @media (max-width: 768px) {
+            .logo-wrap { align-items: center; } /* ロゴ中央揃え */
             .nav-list { display: none; } .header-inner { justify-content: center; }
             .bottom-nav { display: flex; position: fixed; bottom: 0; left: 0; width: 100%; background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); border-top: 1px solid #eaeaea; box-shadow: 0 -5px 25px rgba(0,0,0,0.05); z-index: 1000; padding-bottom: env(safe-area-inset-bottom); }
             .bottom-tab { flex: 1; text-align: center; padding: 16px 0 12px; font-size: 11px; color: #b0b0b0; display: flex; flex-direction: column; align-items: center; gap: 5px; position: relative; -webkit-tap-highlight-color: transparent; }
@@ -68,7 +70,11 @@
 
 <header>
     <div class="container header-inner">
-        <div class="logo">misoshiru.nom</div>
+        <!-- ロゴ周りを修正 -->
+        <a href="index.html" class="logo-wrap">
+            <div class="logo">misoshiru.nom</div>
+            <div class="logo-sub">みそしる どっと のむ</div>
+        </a>
         <nav>
             <ul class="nav-list">
                 <li><a href="index.html" class="nav-item">TOP</a></li>
@@ -87,9 +93,9 @@
             <h2>組織概要</h2>
             <table class="info-table">
                 <tr><th>屋号</th><td>misoshiru.nom-project</td></tr>
-                <tr><th>代表</th><td>[ご自身の本名を入力]</td></tr>
-                <tr><th>所在地</th><td>〒000-0000<br>[契約予定のバーチャルオフィスの住所を入力]</td></tr>
-                <tr><th>設立</th><td>2026年 [開業月]月</td></tr>
+                <tr><th>代表</th><td>味噌野 味噌男</td></tr>
+                <tr><th>所在地</th><td>〒107-0062<br>東京都港区南青山2-2-15</td></tr>
+                <tr><th>設立</th><td>2026年3月</td></tr>
             </table>
         </div>
     </section>
@@ -100,7 +106,7 @@
                 <div class="contact-icon">✉️</div>
                 <h2 style="margin-bottom: 20px; padding-bottom: 0;">お問い合わせ</h2>
                 <p style="color: #666; margin-bottom: 30px;">アプリに関するお問い合わせ、サポート、ビジネスのご相談は、下記メールアドレスまでご連絡ください。</p>
-                <p style="font-size: 20px; font-weight: bold; color: var(--main-color);">info@[取得予定のドメインを入力]</p>
+                <p style="font-size: 20px; font-weight: bold; color: var(--main-color);">info@準備中</p>
             </div>
         </div>
     </section>
@@ -119,13 +125,9 @@
         const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                }
+                if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
             });
         }, observerOptions);
-
         document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
     });
 </script>
