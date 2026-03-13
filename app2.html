@@ -16,7 +16,12 @@
         
         header { background-color: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #f0f0f0; position: sticky; top: 0; z-index: 100; transition: all 0.3s; }
         .header-inner { display: flex; justify-content: space-between; align-items: center; height: 80px; }
-        .logo { font-size: 24px; font-weight: 700; color: var(--main-color); letter-spacing: 0.05em; }
+        
+        /* ロゴ周りの修正 */
+        .logo-wrap { display: flex; flex-direction: column; text-decoration: none; }
+        .logo { font-size: 24px; font-weight: 700; color: var(--main-color); letter-spacing: 0.05em; line-height: 1; }
+        .logo-sub { font-size: 11px; color: #888; font-weight: normal; letter-spacing: 0.15em; margin-top: 4px; }
+        
         .nav-list { display: flex; gap: 40px; font-size: 14px; letter-spacing: 0.05em; }
         .nav-item { position: relative; padding-bottom: 5px; }
         .nav-item::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--main-color); transition: width 0.3s ease; }
@@ -37,7 +42,6 @@
         .app-title { font-size: 40px; margin-bottom: 10px; }
         .app-subtitle { font-size: 18px; color: var(--main-color); margin-bottom: 30px; }
         
-        /* スライド風のレイアウト */
         .app-presentation { display: flex; flex-direction: column; align-items: center; gap: 80px; }
         .slide-image-wrap { width: 100%; max-width: 900px; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.08); background-color: #fff; }
         .slide-image-wrap img { width: 100%; height: auto; display: block; transition: transform 0.5s ease; }
@@ -51,6 +55,7 @@
 
         .bottom-nav { display: none; }
         @media (max-width: 768px) {
+            .logo-wrap { align-items: center; } /* ロゴ中央揃え */
             .nav-list { display: none; } .header-inner { justify-content: center; }
             .bottom-nav { display: flex; position: fixed; bottom: 0; left: 0; width: 100%; background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); border-top: 1px solid #eaeaea; box-shadow: 0 -5px 25px rgba(0,0,0,0.05); z-index: 1000; padding-bottom: env(safe-area-inset-bottom); }
             .bottom-tab { flex: 1; text-align: center; padding: 16px 0 12px; font-size: 11px; color: #b0b0b0; display: flex; flex-direction: column; align-items: center; gap: 5px; position: relative; -webkit-tap-highlight-color: transparent; }
@@ -68,11 +73,14 @@
 
 <header>
     <div class="container header-inner">
-        <div class="logo">misoshiru.nom</div>
+        <!-- ロゴ周りを修正 -->
+        <a href="index.html" class="logo-wrap">
+            <div class="logo">misoshiru.nom</div>
+            <div class="logo-sub">みそしる どっと のむ</div>
+        </a>
         <nav>
             <ul class="nav-list">
                 <li><a href="index.html" class="nav-item">TOP</a></li>
-                <!-- APPSの中の個別ページなのでAPPSをactiveにしておく -->
                 <li><a href="apps.html" class="nav-item active">APPS</a></li>
                 <li><a href="profile.html" class="nav-item">PROFILE</a></li>
             </ul>
