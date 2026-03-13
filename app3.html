@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>みやすい電話 | misoshiru.nom-project</title>
+    <style>
+        :root { --bg-color: #ffffff; --main-color: #8c5b3e; --text-color: #333333; --accent-color: #f7f3f0; --font-main: 'Noto Sans JP', sans-serif; }
+        body { font-family: var(--font-main); color: var(--text-color); background-color: var(--bg-color); margin: 0; padding: 0; line-height: 2; padding-bottom: 90px; overflow-x: hidden;}
+        @media (min-width: 769px) { body { padding-bottom: 0; } }
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        img { max-width: 100%; height: auto; display: block; }
+        ul { list-style: none; margin: 0; padding: 0; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 5%; }
+        h1, h2, h3, h4 { color: #222; font-weight: 700; margin: 0; }
+        
+        header { background-color: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #f0f0f0; position: sticky; top: 0; z-index: 100; transition: all 0.3s; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+        .logo { font-size: 24px; font-weight: 700; color: var(--main-color); letter-spacing: 0.05em; }
+        .nav-list { display: flex; gap: 40px; font-size: 14px; letter-spacing: 0.05em; }
+        .nav-item { position: relative; padding-bottom: 5px; }
+        .nav-item::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--main-color); transition: width 0.3s ease; }
+        .nav-item:hover::after, .nav-item.active::after { width: 100%; }
+
+        .fade-in-up { opacity: 0; transform: translateY(40px); transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .fade-in-up.is-visible { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.2s; }
+
+        .back-link-wrap { padding: 30px 0; }
+        .back-link { display: inline-flex; align-items: center; color: #666; font-size: 14px; }
+        .back-link::before { content: '←'; margin-right: 8px; transition: transform 0.3s; }
+        .back-link:hover { color: var(--main-color); }
+        .back-link:hover::before { transform: translateX(-5px); }
+
+        .app-section { padding: 40px 0 100px; }
+        .app-intro { text-align: center; margin-bottom: 80px; }
+        .app-title { font-size: 40px; margin-bottom: 10px; }
+        .app-subtitle { font-size: 18px; color: var(--main-color); margin-bottom: 30px; }
+        
+        /* スライド風のレイアウト */
+        .app-presentation { display: flex; flex-direction: column; align-items: center; gap: 80px; }
+        .slide-image-wrap { width: 100%; max-width: 900px; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.08); background-color: #fff; }
+        .slide-image-wrap img { width: 100%; height: auto; display: block; transition: transform 0.5s ease; }
+        .slide-image-wrap:hover img { transform: scale(1.02); }
+        
+        .action-area { text-align: center; margin-top: 80px; }
+        .dl-btn { display: inline-block; background-color: var(--main-color); color: #fff; padding: 20px 60px; border-radius: 50px; font-size: 18px; font-weight: bold; letter-spacing: 0.1em; box-shadow: 0 10px 20px rgba(140, 91, 62, 0.3); transition: all 0.3s; }
+        .dl-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(140, 91, 62, 0.4); }
+
+        footer { background-color: #222; color: #aaa; padding: 60px 0; font-size: 13px; text-align: center; }
+
+        .bottom-nav { display: none; }
+        @media (max-width: 768px) {
+            .nav-list { display: none; } .header-inner { justify-content: center; }
+            .bottom-nav { display: flex; position: fixed; bottom: 0; left: 0; width: 100%; background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); border-top: 1px solid #eaeaea; box-shadow: 0 -5px 25px rgba(0,0,0,0.05); z-index: 1000; padding-bottom: env(safe-area-inset-bottom); }
+            .bottom-tab { flex: 1; text-align: center; padding: 16px 0 12px; font-size: 11px; color: #b0b0b0; display: flex; flex-direction: column; align-items: center; gap: 5px; position: relative; -webkit-tap-highlight-color: transparent; }
+            .tab-icon { font-size: 24px; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+            .bottom-tab.active { color: var(--main-color); font-weight: 700; }
+            .bottom-tab.active .tab-icon { transform: translateY(-3px) scale(1.1); }
+            .bottom-tab.active::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 30%; height: 2px; background-color: var(--main-color); border-radius: 0 0 2px 2px; }
+            
+            .app-presentation { gap: 40px; }
+            .slide-image-wrap { border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container header-inner">
+        <div class="logo">misoshiru.nom</div>
+        <nav>
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-item">TOP</a></li>
+                <!-- APPSの中の個別ページなのでAPPSをactiveにしておく -->
+                <li><a href="apps.html" class="nav-item active">APPS</a></li>
+                <li><a href="profile.html" class="nav-item">PROFILE</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <div class="container back-link-wrap fade-in-up">
+        <a href="apps.html" class="back-link">アプリ一覧に戻る</a>
+    </div>
+
+    <section class="app-section">
+        <div class="container">
+            <div class="app-intro fade-in-up">
+                <h1 class="app-title">みやすい電話</h1>
+                <p class="app-subtitle">ガラケー時代のような安心感で、迷わず操作。</p>
+                <p style="color:#666;">スマホの電話帳に使いにくさを感じている方へ。「見やすさ」と「使いやすさ」を徹底追及した電話アプリです。</p>
+            </div>
+
+            <div class="app-presentation">
+                <div class="slide-image-wrap fade-in-up delay-1"><img src="miyasui_01.jpg" alt="スマホの電話帳、使いにくくないですか？"></div>
+                <div class="slide-image-wrap fade-in-up"><img src="miyasui_02.jpg" alt="「スクロールなし」の安心感。本をめくるように簡単操作"></div>
+                <div class="slide-image-wrap fade-in-up"><img src="miyasui_03.jpg" alt="圧倒的な「見やすさ」で、もう虫眼鏡はいりません"></div>
+                <div class="slide-image-wrap fade-in-up"><img src="miyasui_04.jpg" alt="見やすい履歴と、押し間違いゼロの大きなダイヤル"></div>
+                <div class="slide-image-wrap fade-in-up"><img src="miyasui_05.jpg" alt="迷わない、ステップバイステップの登録画面"></div>
+                <div class="slide-image-wrap fade-in-up"><img src="miyasui_06.jpg" alt="自分の電話番号も、ワンタッチですぐに確認"></div>
+                <div class="slide-image-wrap fade-in-up"><img src="miyasui_07.jpg" alt="「かんたん画面2」との相性抜群"></div>
+                <div class="slide-image-wrap fade-in-up"><img src="miyasui_08.jpg" alt="「見やすさ」と「自分らしさ」を両立した電話アプリ"></div>
+            </div>
+
+            <div class="action-area fade-in-up">
+                <h3 style="margin-bottom: 20px;">みやすい電話で、日々の連絡をもっと快適に</h3>
+                <a href="#" class="dl-btn">Google Play で手に入れる</a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer><div class="container"><p>&copy; 2026 misoshiru.nom-project All rights reserved.</p></div></footer>
+
+<nav class="bottom-nav">
+    <a href="index.html" class="bottom-tab"><span class="tab-icon">🏠</span><span>TOP</span></a>
+    <a href="apps.html" class="bottom-tab active"><span class="tab-icon">📱</span><span>APPS</span></a>
+    <a href="profile.html" class="bottom-tab"><span class="tab-icon">👤</span><span>PROFILE</span></a>
+</nav>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+    });
+</script>
+
+</body>
+</html>
